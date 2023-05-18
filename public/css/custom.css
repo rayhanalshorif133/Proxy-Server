@@ -1,0 +1,124 @@
+/* 1201px and more —  Extra large screens, TV */
+@media (min-width: 1200px) {
+    .navbar-brand {
+        font-size: 1.28rem;
+    }
+}
+
+input[type="checkbox"],
+.form-select {
+    cursor: pointer !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.bg-red {
+    background-color: #f6051d !important;
+}
+
+.bg-yellow {
+    background-color: #ffc107 !important;
+}
+
+.bg-blue {
+    background-color: #2803f8 !important;
+}
+
+.bg-orange {
+    background-color: #ff5722 !important;
+}
+
+.bg-black {
+    background-color: #000000 !important;
+}
+
+.text-green {
+    color: #2b845d !important;
+}
+
+.bg-green {
+    background-color: #2b845d !important;
+}
+
+.btn-green {
+    background-color: #2b845d;
+    color: #fff;
+}
+.btn-green:hover {
+    background-color: #176241 !important;
+    color: #fff !important;
+}
+
+.form-check-input:checked {
+    background-color: #2b845d;
+    border-color: #2b845d;
+}
+
+.badge .showDeviceStatus {
+    font-size: 1rem !important;
+}
+
+.alert {
+    font-size: 14px !important;
+}
+
+.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
+
+.optional::after {
+    content: " (optional)";
+    color: #999;
+    font-weight: normal;
+}
+.cursor-pointer {
+    cursor: pointer !important;
+}
+.single-link {
+    color: #656e79;
+    text-decoration: none;
+}
+.single-link:hover {
+    color: #232e3c;
+    text-decoration: none;
+}
+.active,
+.dropdown-item:hover {
+    color: #2c7be5 !important;
+}
+.header_divider {
+    width: 170px;
+    height: 2px;
+    margin: auto;
+    background-color: #35be70;
+}
+
+#proxyHistory_wrapper{
+    margin: 5%!important;
+}
+/* media tag devices:start */
+/*  320px — 480px: Mobile devices */
+@media screen and (min-width: 320px) and (max-width: 480px) {
+}
+/* 481px — 768px: iPads, Tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    #proxyHistory_wrapper{
+        margin: 5%!important;
+    }
+}
+/* 769px — 1024px: Small screens, laptops */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+/* 1025px — 1200px: Desktops, large screens */
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+}
+
+/* media tag devices:end */
+
+
