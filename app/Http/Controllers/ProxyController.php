@@ -8,19 +8,39 @@ use App\Models\Location;
 use App\Models\StoreProxy;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class ProxyController extends Controller
 {
     // Admin
 
-    public function index()
+    public function index($start_date = null, $end_date = null)
     {
-        $histories = History::select('id','username','password','user_id','porxy_ip','porxy_port','porxy_time','service','location','status','created_at')
-            ->with('user')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        return view('proxy.index', compact('histories'));
+        if($start_date == null && $end_date == null)
+            {
+                $histories = History::select('id','username','password','user_id','porxy_ip','porxy_port','porxy_time','service','location','status','created_at')
+                 ->with('user')
+                 ->orderBy('created_at', 'desc')
+                 ->get();
+                return view('proxy.index', compact('histories'));
+            }
+        else
+        {
+            $start_date = Carbon::parse($start_date)->toDateTimeString();
+            $end_date = Carbon::parse($end_date)->toDateTimeString();
+            $histories = History::select('id','username','password','user_id','porxy_ip','porxy_port','porxy_time','service','location','status','created_at')
+                 ->with('user')
+                 ->whereBetween('created_at', [$start_date, $end_date])
+                 ->orderBy('created_at', 'desc')
+                 ->get();
+            return response()->json([
+                'status'   => true,
+                'errors'  => false,
+                'message'  => "Fetch History By Date filter",
+                'data'     => $histories
+            ], 200);
+        }
     }
 
     

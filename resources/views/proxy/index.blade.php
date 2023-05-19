@@ -133,6 +133,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 {{-- CDN --}}
 <script>
     var dateFrom = '';
@@ -179,30 +180,38 @@
 
 
         const filterByDate = () => {
-            table.destroy();
-            $('.historyOfProxy tbody tr').each(function() {
-                var created_at = $(this).find('.created_at').attr('id');
-                created_at = created_at.split(' ')[0];
-                
-                if(dateFrom > dateTo){
-                    var temp = dateto;
-                    dateTo = dateFrom;
-                    dateFrom = temp;
-                }
-                if(dateFrom < created_at && dateTo > created_at){
-                    console.log("dateFrom--",dateFrom, "created_at--",created_at,dateTo);
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            });
+            const URL = `/user/proxy/history/${dateFrom}/${dateTo}`;
+            axios.get(URL)
+            .then((response) => {
+                let data = response.data.data;
+                var checkBtn = `
+                <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" id="checkbox-1" data-bulk-select-row="data-bulk-select-row" />
+                    </div>
+                    `;
+                    table.clear().draw();
+                    data.map(function(item,index) {
+
+                        var time = moment(item.created_at).startOf('hour').fromNow();
+                        table.row.add([
+                            checkBtn,
+                            index+1, 
+                            item.user.name, 
+                            item.username, 
+                            item.password,
+                            item.service,
+                            item.location,
+                            item.porxy_ip,
+                            item.porxy_port,
+                            time,
+                            `
+                            <span class="d-none">${item.status}</span>
+                            `,
+                        ]).draw(false);
+                    });
+                });
+            
             handleDateRangePicker();
-            $(".historyOfProxy").DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
             // desing in btn
             $('.dt-button').addClass('btn btn-outline-green btn-sm me-1');
             // dataTableHandler();

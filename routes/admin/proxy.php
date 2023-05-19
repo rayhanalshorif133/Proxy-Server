@@ -16,7 +16,7 @@ Route::middleware('role:admin')
     ->name('user.proxy.')
     ->controller(ProxyController::class)
     ->group(function () {
-        Route::get('/history', 'index')->name('history');
+        Route::get('/history/{start_date?}/{end_date?}', 'index')->name('history');
         Route::get('/history/{id}/edit', 'edit')->name('edit');
         Route::delete('/history/{id}/delete', 'delete')->name('delete');
         
